@@ -1,6 +1,6 @@
 
 ##################################################################
-# User Data Script for PostgreSQL EC2 Instance: 
+# User Data Script for PostgreSQL Installation: 
 ##################################################################
 
 # Install / Update package lists:
@@ -45,4 +45,51 @@ sudo systemctl start postgresql-17
 sudo sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /var/lib/pgsql/17/data/postgresql.conf
 
 # Allow remote connections by modifying pg_hba.conf
+
+
+
+
+
+##################################################################
+# User Data Script for Client PMM Installation: 
+##################################################################
+
+ALTER SYSTEM SET pg_stat_monitor.pgsm_enable_query_plan = off;
+SELECT pg_reload_conf();
+
+
+# Install PG_stat_monitor package:
+sudo yum install percona-pg-stat-monitor17
+
+
+vi postgresql.conf
+# Add the following lines to postgresql.conf:
+`
+shared_preload_libraries = 'pg_stat_monitor'
+pg_stat_monitor.pgsm_query_max_len = 2048
+pg_stat_monitor.pgsm_normalized_query = 1
+`
+
+# Restart PostgreSQL service to apply changes: 
+systemctl restart postgresql
+
+# Create the pg_stat_monitor extension in the 'postgres' database:
+psql -d postgres -c "CREATE EXTENSION pg_stat_monitor;"
+
+# Verify the installation by checking the pg_stat_monitor view:
+SELECT pg_stat_monitor_version();
+
+
+
+# Install PMM Client: 
+sudo yum install pmm-client
+
+# Add Service to PMM: 
+pmm-admin add postgresql \
+--username=pmm \
+--password=password \
+--server-url=https://admin:admin@X.X.X.X:443 \
+--server-insecure-tls \
+--service-name=SERVICE-NAME \
+--auto-discovery-limit=10
 
