@@ -13,25 +13,25 @@ variable "instance_type" {
   default     = "t2.micro"
 }
 
-variable "subnet_id" {
-  description = "Subnet ID to launch the EC2 instance in"
-  type        = string
-}
+#variable "subnet_id" {
+#  description = "Subnet ID to launch the EC2 instance in"
+#  type        = string
+#}
 
-variable "postgresql_sec_group_ids" {
-  type        = list(string)
-  description = "Sec_group id for the PostgreSQL EC2"
-}
+#variable "postgresql_sec_group_ids" {
+#  type        = list(string)
+#  description = "Sec_group id for the PostgreSQL EC2"
+#}
 
 variable "key_name" {
   description = "Key pair name for SSH access"
   type        = string
 }
 
-variable "iam_instance_profile" {
-  description = "IAM Role for the Prometheus Automatic Service Discovery"
-  type        = string
-}
+#variable "iam_instance_profile" {
+#  description = "IAM Role for the Prometheus Automatic Service Discovery"
+#  type        = string
+#}
 
 variable "volume_size" {
   description = "EBS Volume GBs Size"
