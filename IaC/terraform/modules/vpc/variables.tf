@@ -37,10 +37,16 @@ variable "private_subnet_2_cidr" {
   default     = "10.0.0.48/28"
 }
 
-variable "availability_zone" {
+variable "availability_zone_1" {
   description = "A list of availability zones to deploy the subnets into."
   type        = string
   default     = "us-east-1a"
+}
+
+variable "availability_zone_2" {
+  description = "A list of availability zones to deploy the subnets into."
+  type        = string
+  default     = "us-east-1b"
 }
 
 variable "nat_gateway_public_subnet_id" {

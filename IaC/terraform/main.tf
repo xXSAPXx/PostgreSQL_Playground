@@ -22,7 +22,8 @@ module "vpc" {
   internet_gateway_name = "Internet_Gateway_PostgreSQL_Playground_IaC"
 
   # --- Availability Zone Settings ---
-  availability_zone = "us-east-1a"
+  availability_zone_1 = "us-east-1a"
+  availability_zone_2 = "us-east-1b"
 
 
   # --- Subnet CIDR Block Settings ---

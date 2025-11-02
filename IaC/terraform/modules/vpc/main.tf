@@ -19,8 +19,8 @@ resource "aws_vpc" "postgresql_vpc" {
 resource "aws_subnet" "public_subnet_1" {
   vpc_id                  = aws_vpc.postgresql_vpc.id
   cidr_block              = var.public_subnet_1_cidr
-  availability_zone       = var.availability_zone   # Replace with your preferred AZ
-  map_public_ip_on_launch = true                    # Enable this to auto-assign public IPs
+  availability_zone       = var.availability_zone_1   # Replace with your preferred AZ
+  map_public_ip_on_launch = true                      # Enable this to auto-assign public IPs
   tags = {
     Name = "Public_Subnet_PMM_IaC"
   }
@@ -65,9 +65,9 @@ resource "aws_nat_gateway" "nat" {
 # Create a Private_Subnet_1:
 resource "aws_subnet" "private_subnet_1" {
   vpc_id                  = aws_vpc.postgresql_vpc.id
-  cidr_block              = var.private_subnet_1_cidr # Make sure the CIDR block doesn't overlap with the public subnet
-  availability_zone       = var.availability_zone     # Same AZ as the first public subnet
-  map_public_ip_on_launch = false                     # DO NOT Auto-assign public IPs!
+  cidr_block              = var.private_subnet_1_cidr   # Make sure the CIDR block doesn't overlap with the public subnet
+  availability_zone       = var.availability_zone_1     # Same AZ as the first public subnet
+  map_public_ip_on_launch = false                       # DO NOT Auto-assign public IPs!
   tags = {
     Name = "Private_Subnet_1_PG_IaC"
   }
@@ -77,7 +77,7 @@ resource "aws_subnet" "private_subnet_1" {
 resource "aws_subnet" "private_subnet_2" {
   vpc_id                  = aws_vpc.postgresql_vpc.id
   cidr_block              = var.private_subnet_2_cidr # Make sure the CIDR block doesn't overlap with the public subnet
-  availability_zone       = var.availability_zone     # Same AZ as the private and public subnet
+  availability_zone       = var.availability_zone_2   # Same AZ as the private and public subnet
   map_public_ip_on_launch = false                     # DO NOT Auto-assign public IPs!
   tags = {
     Name = "Private_Subnet_2_PG_IaC"
