@@ -3,5 +3,4 @@ Playground for PostgreSQL simulating a PROD environment.
 
 
 # Proposed Archirecture: 
-<img src="https://github.com/user-attachments/assets/10f4f4a1-3b9b-40ba-8bcc-54ea74ee0b9d" 
-alt="PostgreSQL drawio" width="550" />
+<img width="550" alt="PG_infra" src="https://github.com/user-attachments/assets/f33a2212-26e5-40c1-a6e1-b06265be7d83" />
