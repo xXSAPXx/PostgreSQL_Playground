@@ -18,10 +18,10 @@ resource "aws_instance" "postgresql_ec2_instance" {
   ami                    = var.ami_id
   instance_type          = var.instance_type
   subnet_id              = var.subnet_id
-  vpc_security_group_ids = var.postgresql_sec_group_ids
+  vpc_security_group_ids = [var.postgresql_sec_group_id]
   key_name               = var.key_name
   user_data              = base64encode(local.postgresql_ec2_userdata)
-  iam_instance_profile   = var.iam_instance_profile
+  #iam_instance_profile   = var.iam_instance_profile
 
   root_block_device {
     volume_size = var.volume_size
@@ -32,3 +32,4 @@ resource "aws_instance" "postgresql_ec2_instance" {
     Name = var.postgresql_tag_name
   }
 }
+

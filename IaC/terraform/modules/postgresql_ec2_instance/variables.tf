@@ -13,15 +13,15 @@ variable "instance_type" {
   default     = "t2.micro"
 }
 
-#variable "subnet_id" {
-#  description = "Subnet ID to launch the EC2 instance in"
-#  type        = string
-#}
+variable "subnet_id" {
+  description = "Subnet ID to launch the EC2 instance in"
+  type        = string
+}
 
-#variable "postgresql_sec_group_ids" {
-#  type        = list(string)
-#  description = "Sec_group id for the PostgreSQL EC2"
-#}
+variable "postgresql_sec_group_id" {
+  type        = string
+  description = "Sec_group id for the PostgreSQL EC2"
+}
 
 variable "key_name" {
   description = "Key pair name for SSH access"
