@@ -7,6 +7,10 @@ variable "vpc_id" {
   description = "The ID of the VPC where the security groups will be created."
 }
 
+variable "vpc_cidr_block" {
+  type        = string
+  description = "CIDR block for the VPC."
+}
 
 ####################################################
 # PostgreSQL Instance SEC GROUP VARIABLES: 
@@ -28,11 +32,6 @@ variable "postgresql_ec2_instance_cidr_block" {
   type        = string
   description = "CIDR block used for ingress and egress inside the VPC."
   default     = "0.0.0.0/0"
-}
-
-variable "vpc_cidr_block" {
-  type        = string
-  description = "CIDR block for the VPC."
 }
 
 
@@ -58,10 +57,6 @@ variable "pmm_ec2_instance_cidr_block" {
   default     = "0.0.0.0/0"
 }
 
-variable "vpc_cidr_block" {
-  type        = string
-  description = "CIDR block for the VPC."
-}
 
 ########################################################################
 # Trafic Generator Instance SEC GROUP VARIABLES:
