@@ -83,13 +83,13 @@ module "pmm_ec2_instance" {
   source = "./modules/pmm_ec2_instance"
 
   # --- PMM_EC2_Instance Settings ---
-  ami_id                  = "ami-0583d8c7a9c35822c"
-  instance_type           = "t2.micro"
-  key_name                = var.aws_key_pair
-  subnet_id               = module.vpc.public_subnet_1_id
-  postgresql_sec_group_id = module.security_groups.pmm_ec2_instance_security_group_id
+  ami_id                        = "ami-0583d8c7a9c35822c"
+  instance_type                 = "t2.micro"
+  key_name                      = var.aws_key_pair
+  subnet_id                     = module.vpc.public_subnet_1_id
+  pmm_ec2_instance_sec_group_id = module.security_groups.pmm_ec2_instance_security_group_id
   #iam_instance_profile   = module.iam_roles............
-  postgresql_tag_name     = "pmm-server"
+  pmm_tag_name                  = "pmm-server"
 
   # EBS Volume Settings:
   volume_size = 10

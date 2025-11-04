@@ -18,7 +18,7 @@ variable "subnet_id" {
   type        = string
 }
 
-variable "pmm_ec2_instance_sec_group_id" {
+variable "pmm_sec_group_id" {
   type        = string
   description = "Sec_group id for the pmm EC2"
 }

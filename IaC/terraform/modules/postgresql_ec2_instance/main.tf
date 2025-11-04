@@ -11,7 +11,7 @@ locals {
 
 
 ########################################################################
-# Public EC2 - Jump_Host + Prometheus server:
+# Private PostgreSQL DB:
 ########################################################################
 
 resource "aws_instance" "postgresql_ec2_instance" {
@@ -21,7 +21,7 @@ resource "aws_instance" "postgresql_ec2_instance" {
   vpc_security_group_ids = [var.postgresql_sec_group_id]
   key_name               = var.key_name
   user_data              = base64encode(local.postgresql_ec2_userdata)
-  #iam_instance_profile   = var.iam_instance_profile
+  #iam_instance_profile  = var.iam_instance_profile
 
   root_block_device {
     volume_size = var.volume_size
