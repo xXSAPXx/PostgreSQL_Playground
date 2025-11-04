@@ -87,8 +87,8 @@ module "pmm_ec2_instance" {
   instance_type                 = "t2.micro"
   key_name                      = var.aws_key_pair
   subnet_id                     = module.vpc.public_subnet_1_id
-  pmm_ec2_instance_sec_group_id = module.security_groups.pmm_ec2_instance_security_group_id
-  #iam_instance_profile   = module.iam_roles............
+  pmm_sec_group_id              = module.security_groups.pmm_ec2_instance_security_group_id
+  #iam_instance_profile         = module.iam_roles............
   pmm_tag_name                  = "pmm-server"
 
   # EBS Volume Settings:
