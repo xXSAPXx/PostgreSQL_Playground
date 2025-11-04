@@ -40,6 +40,28 @@ variable "vpc_cidr_block" {
 # PMM Server SEC GROUP VARIABLES:
 ########################################################################
 
+variable "pmm_sec_group_name" {
+  description = "Name for the PMM Instance Security Group"
+  type        = string
+  default     = "pmm_instance_sg"
+}
+
+variable "pmm_sec_group_description" {
+  description = "Allow PMM and SSH"
+  type        = string
+  default     = "Allow PMM and SSH"
+}
+
+variable "pmm_ec2_instance_cidr_block" {
+  type        = string
+  description = "CIDR block used for ingress and egress inside the VPC."
+  default     = "0.0.0.0/0"
+}
+
+variable "vpc_cidr_block" {
+  type        = string
+  description = "CIDR block for the VPC."
+}
 
 ########################################################################
 # Trafic Generator Instance SEC GROUP VARIABLES:

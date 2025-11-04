@@ -1,5 +1,5 @@
 ##########################################
-# POSTGRESQL EC2 INSTANCE VARIABLES
+# PMM EC2 INSTANCE VARIABLES
 ##########################################
 
 variable "ami_id" {
@@ -18,9 +18,9 @@ variable "subnet_id" {
   type        = string
 }
 
-variable "postgresql_sec_group_id" {
+variable "pmm_ec2_instance_sec_group_id" {
   type        = string
-  description = "Sec_group id for the PostgreSQL EC2"
+  description = "Sec_group id for the pmm EC2"
 }
 
 variable "key_name" {
@@ -45,8 +45,8 @@ variable "volume_type" {
   default     = "gp2"
 }
 
-variable "postgresql_tag_name" {
+variable "pmm_tag_name" {
   description = "Tags to apply to the EC2 instance"
   type        = string
-  default     = "postgresql-source"
+  default     = "pmm-server"
 }
