@@ -18,7 +18,7 @@ resource "aws_instance" "pmm_ec2_instance" {
   ami                    = var.ami_id
   instance_type          = var.instance_type
   subnet_id              = var.subnet_id
-  vpc_security_group_ids = [var.pmm_ec2_instance_sec_group_id]
+  vpc_security_group_ids = [var.pmm_sec_group_id]
   key_name               = var.key_name
   user_data              = base64encode(local.pmm_ec2_instance_userdata)
 
