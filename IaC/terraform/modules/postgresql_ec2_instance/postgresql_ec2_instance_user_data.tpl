@@ -4,20 +4,17 @@
 ##################################################################
 
 # Install / Update package lists:
-dnf update -y
-sudo dnf -y install epel-release
+#sudo dnf update -y
+sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+
 sudo dnf -y install curl
 sudo dnf -y install bash-completion
 sudo dnf -y install bat
 sudo dnf -y install bind-utils
 sudo dnf -y install btop
-sudo dnf -y install htop
 sudo dnf -y install iotop
-sudo dnf -y install lsof
 sudo dnf -y install telnet
-sudo dnf -y install wget
 sudo dnf -y install vim
-sudo dnf -y install git
 
 
 # Install Percona PostgreSQL version 17:
