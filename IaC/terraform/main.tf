@@ -84,7 +84,7 @@ module "pmm_ec2_instance" {
 
   # --- PMM_EC2_Instance Settings ---
   ami_id                        = "ami-0583d8c7a9c35822c"
-  instance_type                 = "t2.micro"
+  instance_type                 = "t2.small"
   key_name                      = var.aws_key_pair
   subnet_id                     = module.vpc.public_subnet_1_id
   pmm_sec_group_id              = module.security_groups.pmm_ec2_instance_security_group_id

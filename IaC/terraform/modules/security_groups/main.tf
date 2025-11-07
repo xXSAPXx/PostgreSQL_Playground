@@ -54,8 +54,15 @@ resource "aws_security_group" "pmm_ec2_instance_sg" {
   }
 
   ingress {
-    from_port   = 5432
-    to_port     = 5432
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = [var.pmm_ec2_instance_cidr_block]
+  }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
     protocol    = "tcp"
     cidr_blocks = [var.pmm_ec2_instance_cidr_block]
   }

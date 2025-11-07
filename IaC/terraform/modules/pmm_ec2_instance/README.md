@@ -41,13 +41,13 @@ ssh-add C:\Users\simeo\Desktop\IT_General\KeyPairs\Test_env
 ssh-add -L  
 
 7) Connect to Bastion_Host in PowerShell:  
-ssh -A -i C:\Users\simeo\Desktop\IT_General\KeyPairs\Test_env ec2-user@13.217.59.81  
+ssh -A -i C:\Users\simeo\Desktop\IT_General\KeyPairs\Test_env ec2-user@54.205.210.101  
 
 8) Check if key is correctly forwarded to the Bastion_Host:  
 ssh-add -L  
 
 9) Connect to servers in the private subnets using bastion ec2-user:  
-ssh ec2-user@ip-10-0-0-42.ec2.internal  
+ssh ec2-user@10.0.0.37  
 
 
 ##### Connect to Bastion_Host (SSH Agent Forwarding) [GitBash] #####
