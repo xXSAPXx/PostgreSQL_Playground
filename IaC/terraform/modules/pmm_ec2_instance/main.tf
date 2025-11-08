@@ -6,6 +6,7 @@
 
 locals {
   pmm_ec2_instance_userdata = templatefile("${path.module}/pmm_ec2_instance_user_data.tpl", {
+    postgresql_internal_ip = var.postgresql_internal_ip
   })
 }
 

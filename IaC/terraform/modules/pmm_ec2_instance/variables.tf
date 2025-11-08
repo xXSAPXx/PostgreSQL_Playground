@@ -1,3 +1,15 @@
+
+##########################################
+# TERRAFORM VARIABLES
+##########################################
+
+variable "postgresql_internal_ip" {
+  type        = string
+  sensitive   = true
+  description = "PostgreSQL EC2 Internal IP Address to be used by PMM Server"
+}
+
+
 ##########################################
 # PMM EC2 INSTANCE VARIABLES
 ##########################################

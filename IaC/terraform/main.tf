@@ -62,6 +62,9 @@ module "security_groups" {
 module "postgresql_ec2_instance" {
   source = "./modules/postgresql_ec2_instance"
 
+  # --- Pass Dynamic Variables to PMM EC2 Script ---
+  
+
   # --- PostgreSQL_EC2_Instance Settings ---
   ami_id                  = "ami-0583d8c7a9c35822c"
   instance_type           = "t2.small"
@@ -81,6 +84,9 @@ module "postgresql_ec2_instance" {
 ######################################################################################
 module "pmm_ec2_instance" {
   source = "./modules/pmm_ec2_instance"
+
+  # --- Pass Dynamic Variables to PMM EC2 Script ---
+  postgresql_internal_ip = module.postgresql_ec2_instance.postgresql_ec2_instance_internal_ip
 
   # --- PMM_EC2_Instance Settings ---
   ami_id                        = "ami-0583d8c7a9c35822c"
