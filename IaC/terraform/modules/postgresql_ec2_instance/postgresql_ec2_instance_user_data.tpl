@@ -26,7 +26,6 @@ PG_HBA="/var/lib/pgsql/17/data/pg_hba.conf"
 # Install / Update package lists:
 #sudo dnf update -y
 sudo dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
-
 sudo dnf -y install curl
 sudo dnf -y install bash-completion
 sudo dnf -y install bat
