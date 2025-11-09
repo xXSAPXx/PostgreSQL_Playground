@@ -5,6 +5,9 @@
 # Hostname and /etc/hosts configuration: 
 ##################################################################
 
+# Switch to root user: 
+sudo su - root
+
 # Set hostname: 
 HOSTNAME="postgresql-source"
 sudo hostnamectl set-hostname "$HOSTNAME"
@@ -99,6 +102,7 @@ sudo grep -q "pg_stat_monitor.pgsm_enable_query_plan" "$PG_CONF" || \
 
 # Restart PostgreSQL service to apply changes: 
 sudo systemctl restart postgresql-17
+sleep 5
 
 # Create the pg_stat_monitor extension in the 'postgres' database:
 sudo su - postgres
@@ -127,17 +131,19 @@ psql -c "CREATE USER pmm WITH SUPERUSER ENCRYPTED PASSWORD 'stronG_Password1234#
 sudo sed -i '/^# "local" is for Unix domain socket connections only/a local   all             pmm                                  scram-sha-256' "$PG_HBA"
 psql -c "SELECT pg_reload_conf();"
 
+
+
 # Register PMM Client to PMM Server:
-#pmm-admin config --server-insecure-tls \
-#--server-url=https://admin:admin@18.234.173.211:443
+pmm-admin config --server-insecure-tls \
+--server-url=https://admin:admin@34.229.86.1:443
 
 
 # Add Service to PMM: 
-#pmm-admin add postgresql \
-#--username=pmm \
-#--password=stronG_Password1234# \
-#--server-url=https://admin:admin@18.234.173.211:443 \
-#--server-insecure-tls \
-#--service-name=postgresql-source \
-#--auto-discovery-limit=10
+pmm-admin add postgresql \
+--username=pmm \
+--password=stronG_Password1234# \
+--server-url=https://admin:admin@34.229.86.1:443 \
+--server-insecure-tls \
+--service-name=postgresql-source \
+--auto-discovery-limit=10
 
