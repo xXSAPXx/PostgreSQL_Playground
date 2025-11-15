@@ -1,18 +1,20 @@
 #!/bin/bash
 
 # Exit on error, undefined variable, or error in a pipeline
-set -eou pipefail 
+set -eo pipefail 
+
+# Variables:
+PG_CONF="/var/lib/pgsql/17/data/postgresql.conf"
+PG_HBA="/var/lib/pgsql/17/data/pg_hba.conf"
 
 ###############################################################################
 # Script for | percona-pg-stat-monitor | Installation: 
 ###############################################################################
 
-sudo su - postgres
-psql -c "ALTER SYSTEM SET pg_stat_monitor.pgsm_enable_query_plan = off;"
-psql -c "SELECT pg_reload_conf();"
+sudo -u postgres psql -c "ALTER SYSTEM SET pg_stat_monitor.pgsm_enable_query_plan = off;"
+sudo -u postgres psql -c "SELECT pg_reload_conf();"
 
 # Install PG_stat_monitor package:
-sudo su - root
 sudo dnf -y install percona-pg-stat-monitor17
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -37,11 +39,10 @@ sudo systemctl restart postgresql-17
 sleep 5
 
 # Create the pg_stat_monitor extension in the 'postgres' database:
-sudo su - postgres
-psql -d postgres -c "CREATE EXTENSION pg_stat_monitor;"
+sudo -u postgres psql -d postgres -c "CREATE EXTENSION pg_stat_monitor;"
 
 # Verify the installation by checking the pg_stat_monitor view:
-psql -d postgres -c "SELECT pg_stat_monitor_version();"
+sudo -u postgres psql -d postgres -c "SELECT pg_stat_monitor_version();"
 
 
 
@@ -50,24 +51,24 @@ psql -d postgres -c "SELECT pg_stat_monitor_version();"
 ##################################################################
 
 # Enable Percona PMM Repository:
-sudo su - root
-percona-release disable all
-percona-release enable pmm3-client
+sudo percona-release disable all
+sudo percona-release enable pmm3-client
 
 # Install PMM Client: 
 sudo dnf -y install pmm-client
 
 
 # Create PMM User in PostgreSQL:
-sudo su - postgres
-psql -c "CREATE USER pmm WITH SUPERUSER ENCRYPTED PASSWORD 'stronG_Password1234#';"
+sudo -u postgres psql -c "CREATE USER pmm WITH SUPERUSER ENCRYPTED PASSWORD 'stronG_Password1234#';"
 sudo sed -i '/^# "local" is for Unix domain socket connections only/a local   all             pmm                                  scram-sha-256' "$PG_HBA"
-psql -c "SELECT pg_reload_conf();"
+sudo -u postgres psql -c "SELECT pg_reload_conf();"
 
 
 ##################################################################
 # PMM Client Registration:
 ##################################################################
+
+PMM_PUBLIC_IP=$1
 
 # Check if PMM Server Public IP was passed
 if [ -z "$1" ]; then
@@ -75,8 +76,6 @@ if [ -z "$1" ]; then
     echo "Usage: $0 <PMM_PUBLIC_IP>"
     exit 1
 fi
-
-PMM_PUBLIC_IP="$1"
 
 echo "➡ Registering PMM Client with PMM Server at $PMM_PUBLIC_IP..."
 
