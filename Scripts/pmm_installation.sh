@@ -1,6 +1,10 @@
+#!/bin/bash
+
+# Exit on error, undefined variable, or error in a pipeline
+set -eou pipefail 
 
 ###############################################################################
-# User Data Script for | percona-pg-stat-monitor | Installation: 
+# Script for | percona-pg-stat-monitor | Installation: 
 ###############################################################################
 
 sudo su - postgres
@@ -61,18 +65,33 @@ sudo sed -i '/^# "local" is for Unix domain socket connections only/a local   al
 psql -c "SELECT pg_reload_conf();"
 
 
+##################################################################
+# PMM Client Registration:
+##################################################################
 
-# Register PMM Client to PMM Server:
+# Check if PMM Server Public IP was passed
+if [ -z "$1" ]; then
+    echo "❌ ERROR: PMM server public IP not provided."
+    echo "Usage: $0 <PMM_PUBLIC_IP>"
+    exit 1
+fi
+
+PMM_PUBLIC_IP="$1"
+
+echo "➡ Registering PMM Client with PMM Server at $PMM_PUBLIC_IP..."
+
+# Register PMM Client to PMM Server
 pmm-admin config --server-insecure-tls \
---server-url=https://admin:admin@34.229.86.1:443
+  --server-url="https://admin:admin@${PMM_PUBLIC_IP}:443"
 
-
-# Add Service to PMM: 
+# Add PostgreSQL service to PMM
 pmm-admin add postgresql \
---username=pmm \
---password=stronG_Password1234# \
---server-url=https://admin:admin@34.229.86.1:443 \
---server-insecure-tls \
---service-name=postgresql-source \
---auto-discovery-limit=10
+  --username=pmm \
+  --password="stronG_Password1234#" \
+  --server-url="https://admin:admin@${PMM_PUBLIC_IP}:443" \
+  --server-insecure-tls \
+  --service-name="postgresql-source" \
+  --auto-discovery-limit=10
+
+echo "✅ PMM registration completed."
 
