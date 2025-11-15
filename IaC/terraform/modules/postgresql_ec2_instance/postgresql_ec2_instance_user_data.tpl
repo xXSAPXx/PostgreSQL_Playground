@@ -18,19 +18,6 @@ sudo bash -c "cat <<EOF > /etc/hosts
 EOF"
 
 
-
-##################################################################
-# Download and copy scripts from GitHub repo:
-##################################################################
-
-# Download GitHub repo to /tmp directory 
-sudo git clone https://github.com/xXSAPXx/PostgreSQL_Playground.git /tmp/
-
-# Copy all scripts to /opt/ directory
-sudo cp -r /tmp/PostgreSQL_Playground/scripts/* /opt/
-
-
-
 ##################################################################
 # User Data Script for Percona PostgreSQL Installation: 
 ##################################################################
@@ -51,6 +38,7 @@ sudo dnf -y install iotop
 sudo dnf -y install telnet
 sudo dnf -y install vim
 sudo dnf -y install git
+
 
 # Install Percona PostgreSQL version 17:
 sudo dnf -y module disable postgresql
@@ -81,3 +69,20 @@ sudo sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" $PG_CON
 # Give postgres user sudo privileges: 
 echo "postgres ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/postgres
 
+
+
+##################################################################
+# Download and copy scripts from GitHub repo:
+##################################################################
+
+# Create dir for the repo:
+sudo mkdir -p /tmp/repo
+
+# Download GitHub repo to /tmp directory 
+sudo git clone https://github.com/xXSAPXx/PostgreSQL_Playground.git /tmp/repo
+
+# Copy all scripts to /opt/ directory
+sudo cp -r /tmp/repo/Scripts/* /opt/
+
+# Set execute permissions for all scripts in /opt/ directory:
+sudo chmod +x /opt/*.sh
