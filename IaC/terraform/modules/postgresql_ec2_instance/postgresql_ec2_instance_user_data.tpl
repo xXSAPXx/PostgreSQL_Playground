@@ -18,6 +18,19 @@ sudo bash -c "cat <<EOF > /etc/hosts
 EOF"
 
 
+
+##################################################################
+# Download and copy scripts from GitHub repo:
+##################################################################
+
+# Download GitHub repo to /tmp directory 
+sudo git clone https://github.com/xXSAPXx/PostgreSQL_Playground.git /tmp/
+
+# Copy all scripts to /opt/ directory
+sudo cp -r /tmp/PostgreSQL_Playground/scripts/* /opt/
+
+
+
 ##################################################################
 # User Data Script for Percona PostgreSQL Installation: 
 ##################################################################
@@ -68,5 +81,3 @@ sudo sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" $PG_CON
 # Give postgres user sudo privileges: 
 echo "postgres ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/postgres
 
-# Download all custom scripts to /opt directory from GitHub repo: 
-sudo git clone https://github.com/xXSAPXx/PostgreSQL_Playground.git/Scripts /opt/
