@@ -6,6 +6,16 @@ set -eo pipefail
 # Variables:
 PG_CONF="/var/lib/pgsql/17/data/postgresql.conf"
 PG_HBA="/var/lib/pgsql/17/data/pg_hba.conf"
+PMM_PUBLIC_IP=$1
+
+# Check if PMM Server Public IP was passed
+if [ -z "$1" ]; then
+    echo "❌ ERROR: PMM server public IP not provided."
+    echo "Usage: $0 <PMM_PUBLIC_IP>"
+    exit 1
+fi
+
+echo "➡ Registering PMM Client with PMM Server at $PMM_PUBLIC_IP..."
 
 ###############################################################################
 # Script for | percona-pg-stat-monitor | Installation: 
@@ -67,17 +77,6 @@ sudo -u postgres psql -c "SELECT pg_reload_conf();"
 ##################################################################
 # PMM Client Registration:
 ##################################################################
-
-PMM_PUBLIC_IP=$1
-
-# Check if PMM Server Public IP was passed
-if [ -z "$1" ]; then
-    echo "❌ ERROR: PMM server public IP not provided."
-    echo "Usage: $0 <PMM_PUBLIC_IP>"
-    exit 1
-fi
-
-echo "➡ Registering PMM Client with PMM Server at $PMM_PUBLIC_IP..."
 
 # Register PMM Client to PMM Server
 pmm-admin config --server-insecure-tls \
